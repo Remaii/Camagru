@@ -88,32 +88,34 @@ like.addEventListener('click', function(){
 	var xhr = new XMLHttpRequest(),
 		to = document.getElementById('imgApe').src,
 		tolen = to.indexOf('public'),
-		src = document.getElementById('like').src,
-		len = src.indexOf('rsc');
+		but = document.getElementById('like'),
+		val_like = but.src,
+		len = val_like.indexOf('rsc');
 
-	src = src.slice(len);
+	val_like = val_like.slice(len);
 	to = to.slice(tolen);
-	if (src == '../rsc/like.png') {
+	if (val_like == 'rsc/like.png') {
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				like.src = '../rsc/cross.png';
-				alert(xhr.responseText);
+				
+				//alert(xhr.responseText);
 			}
+			but.src = '../rsc/cross.png';
 		}
 		xhr.open("POST", "../function/like.php");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("like=1&name="+src+"&to="+to);
+		xhr.send("like=1&name="+val_like+"&to="+to);
 	}
-	else {
+	else if (val_like != 'rsc/like.png'){
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				like.src = '../rsc/cross.png';
-				alert(xhr.responseText);
+				but.src = '../rsc/like.png';
+				//alert(xhr.responseText);
 			}
 		}
 		xhr.open("POST", "../function/like.php");
 		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("like=0&name="+src+"&to="+to);
+		xhr.send("like=0&name="+val_like+"&to="+to);
 	}
 }, false);
 
