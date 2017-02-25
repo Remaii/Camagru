@@ -93,15 +93,28 @@ like.addEventListener('click', function(){
 
 	src = src.slice(len);
 	to = to.slice(tolen);
-	xhr.onreadystatechange = function(){
-		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			like.src = '../rsc/cross.png';
-			alert(xhr.responseText);
+	if (src == '../rsc/like.png') {
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				like.src = '../rsc/cross.png';
+				alert(xhr.responseText);
+			}
 		}
+		xhr.open("POST", "../function/like.php");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("like=1&name="+src+"&to="+to);
 	}
-	xhr.open("POST", "../function/like.php");
-	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhr.send("like=1&name="+src+"&to="+to);
+	else {
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				like.src = '../rsc/cross.png';
+				alert(xhr.responseText);
+			}
+		}
+		xhr.open("POST", "../function/like.php");
+		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhr.send("like=0&name="+src+"&to="+to);
+	}
 }, false);
 
 </script>
