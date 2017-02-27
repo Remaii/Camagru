@@ -1,7 +1,6 @@
 <?php
 header("Content-Type: text/php");
 include('../config/database.php');
-// $bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 if ($_POST['data'] && $_POST['login']) {
 	$requete = "SELECT * FROM `Account` WHERE login=\"".$_POST['login']."\"";
 	$table = $bdd->query($requete);

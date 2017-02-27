@@ -45,12 +45,23 @@ function searchLike($id_photo, $id_liker) {
 		return '-1';
 	}
 }
+function update($id_photo, $nb) {
+	include '../config/database.php';
+
+	$req = "SELECT `nb_like` FROM `Photo` WHERE `id`='".$id_photo."'";
+	$rep = $bdd->query($req);
+	$nb_like = $rep->fetch()[0];
+	$nb_like = intval($nb) + intval($nb_like);
+	$req = "UPDATE `Photo` SET `nb_like`='".$nb_like."' WHERE `id`='".$id_photo."'";
+	$bdd->query($req);
+}
 function like($id_photo, $id_liker) {
 	include '../config/database.php';
 	
 	try {
 		$req = "INSERT INTO `t_like`(`id_photo`, `id_liker`) VALUES ('".$id_photo."','".$id_liker."')";
 		$bdd->query($req);
+		update($id_photo, '1');
 	} catch (Exception $e) {
 		echo $e;
 	}
@@ -61,6 +72,7 @@ function dislike($id_photo, $id_liker) {
 	try {
 		$req = "DELETE FROM `t_like` WHERE `id_photo`='".$id_photo."' AND `id_liker`='".$id_liker."'";
 		$bdd->query($req);
+		update($id_photo, '-1');
 	} catch (Exception $e) {
 		echo $e;
 	}

@@ -11,12 +11,9 @@ session_start();
 <div id="center">
 <?php
 include 'database.php';
-if ($_SESSION['login'] == 'admin') {
-try
-{
-	$oldbdd = new PDO($DB_DSNCP, $DB_USER, $DB_PASSWORD);
-	if ($oldbdd != null)
-	{
+try {
+	$oldbdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+	if ($oldbdd != null) {
 		echo "Suppression de l'ancienne base ->";
 		$oldbdd->query('DROP DATABASE IF EXISTS Camagru');
 		$oldbdd = null;
@@ -84,13 +81,9 @@ try
 		$freshbdd->query($req);
 		$j++;
 	}
-}
-catch (Exception $e)
-{
+	header('Location: ../config/setup.php');
+} catch (Exception $e) {
 	echo "Error: ".$e;
-}
-} else {
-	echo '<p>Vous n\'avez pas les droits </p>';
 }
 ?>
 </div>

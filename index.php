@@ -1,5 +1,6 @@
 <?php
 	session_start();
+	include 'config/database.php';
 	if (!$_SESSION['login']) {
 		$_SESSION['login'] = "Unregister";
 	}

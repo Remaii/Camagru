@@ -30,10 +30,14 @@ include '../config/database.php';
 
 <!-- Aperçu -->
 <div id="apercu">
-	<!-- <img id="imgApe" src="../public/admin58b358a8ac3b2.png"> -->
+	<!-- <img id="imgApe" src="../public/leopard.jpg"> -->
+	<!-- <img id="like" src="../rsc/load1.gif"> -->
 	<img id="imgApe" src="../rsc/hidden.png">
 	<img id="like" src="../rsc/hidden.png">
-	<div id="comment"></div>
+	<div id="nb_like" value=""><span style="position:absolute;top:0px;left:0px;"></span></div>
+	<div id="comment">
+		
+	</div>
 </div>
 
 <!-- Galerie -->
