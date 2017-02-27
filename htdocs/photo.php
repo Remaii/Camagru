@@ -37,7 +37,7 @@ if ($_SESSION['login'] != 'Unregister') {
 		{
 			$id = $log['id'];
 		}
-		$req = "SELECT * FROM Photo WHERE `id_auteur`='".$id."'";
+		$req = "SELECT * FROM Photo WHERE `id_auteur`='".$id."' ORDER BY  `id` DESC";
 		$reponse = $bdd->query($req);
 		while ($log = $reponse->fetch())
 		{
@@ -54,6 +54,7 @@ if ($_SESSION['login'] != 'Unregister') {
 </div>
 
 <script type="text/javascript" src="js/function.js"></script>
+<script type="text/javascript" src="js/photo.js"></script>
 
 <?php
 }

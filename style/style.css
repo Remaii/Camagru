@@ -6,6 +6,22 @@ html
 	color: white;
 	z-index: 1;
 }
+a:link
+{
+	color:white;
+}
+a:visited
+{
+	color:grey;
+}
+a:hover
+{
+	color:black;
+}
+a:active
+{
+	color:yellow;
+}
 #head
 {
 	position: absolute;
@@ -20,9 +36,8 @@ html
 }
 #center
 {
-	position: absolute;
-	top:35%;
-	left:40%;
+	position: initial;
+	padding-top: 5%;
 	text-align: center;
 	color: white;
 }
@@ -221,10 +236,10 @@ html
 {
 	position: absolute;
 	top: 2%;
-	left: 5%;
+	left: 15%;
 	right: 5%;
-	width: 90%;
-	height: 50%;
+	/*width: 90%;*/
+	height: 45%;
 	border: 2px solid black;
 }
 #like
@@ -233,6 +248,15 @@ html
 	top: 47%;
 	right: 5%;
 	width: 50px;
+	z-index: 5;
+}
+.liked
+{
+	position: absolute;
+	top: 1.5%;
+	left: 15%;
+	width: 50px;
+	z-index: 5;
 }
 #comment
 {

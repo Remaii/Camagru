@@ -1,19 +1,14 @@
 <?php 
-include '../config/database.php';
+include 'function.php';
 $like = intval($_POST['like']);
-$name = $_POST['name'];
 $to = $_POST['to'];
-
-if ($name && $to && ($like == 1 || $like == 0)) {
-	if ($like == 1) {
-		if (file_exists("../".$to)) {
-			//like ds la bdd
-		}
-	}
-	else {
-		
-	}
+$usr = $_POST['usr'];
+$id_liker = getIdUser($usr);
+$id_photo = getIdPhoto($to);
+if (searchLike($id_photo, $id_liker)) {
+	dislike($id_photo, $id_liker);
 }
-else
-	echo "error";
+else if (!searchLike($id_photo, $id_liker)) {
+	like($id_photo, $id_liker);
+}
 ?>

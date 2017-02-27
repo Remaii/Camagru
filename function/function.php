@@ -1,4 +1,70 @@
 <?php
+function getIdPhoto($name) {
+	include '../config/database.php';
+
+	try {
+		$req = "SELECT * FROM `Photo` WHERE `photo`='".$name."'";
+		$reponse = $bdd->query($req);
+		$log = $reponse->fetch();
+		$id = $log['id'];
+		return $id;
+	} catch (Exception $e) {
+		return $e;
+	}
+}
+function getIdUser($usr) {
+	include '../config/database.php';
+
+	try {
+		$req = "SELECT * FROM `Account` WHERE `login`='".$usr."'";
+		$reponse = $bdd->query($req);
+		$log = $reponse->fetch();
+		$id = $log['id'];
+		return $id;
+	} catch (Exception $e) {
+		return $e;
+	}
+}
+function searchLike($id_photo, $id_liker) {
+	include '../config/database.php';
+
+	if ($id_photo != '0') {
+		try {
+			$req = "SELECT * FROM `t_like` WHERE `id_liker`='".$id_liker."'";
+			$reponse = $bdd->query($req);
+			while ($log = $reponse->fetch()) {
+				if ($log['id_photo'] == $id_photo) {
+					return true;
+				}
+			}
+			return false;
+		} catch (Exception $e) {
+			return $e;
+		}
+	} else if ($id_liker == 0) {
+		return '-1';
+	}
+}
+function like($id_photo, $id_liker) {
+	include '../config/database.php';
+	
+	try {
+		$req = "INSERT INTO `t_like`(`id_photo`, `id_liker`) VALUES ('".$id_photo."','".$id_liker."')";
+		$bdd->query($req);
+	} catch (Exception $e) {
+		echo $e;
+	}
+}
+function dislike($id_photo, $id_liker) {
+	include '../config/database.php';
+
+	try {
+		$req = "DELETE FROM `t_like` WHERE `id_photo`='".$id_photo."' AND `id_liker`='".$id_liker."'";
+		$bdd->query($req);
+	} catch (Exception $e) {
+		echo $e;
+	}
+}
 function sendMail($mail, $login, $forwhat) {
 	require('../config/database.php');
 	if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $mail)) {

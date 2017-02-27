@@ -10,10 +10,14 @@
 		<div><a href="function/select.php?to=photo">Photomathon</a></div>
 <?php
 	if ($_SESSION['login'] != 'Unregister') {
-		echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
+		if ($_SESSION['login'] == 'admin') {
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"config/setup.php\">Setup</a> <a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
+		} else {
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
+		}
 	}
 	else {
-		echo "<div><a href=\"function/select.php?to=login\">Register/Login</a></div>";
+		echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"function/select.php?to=login\">Register/Login</a></div>";
 	}
 ?>	
 	</div>

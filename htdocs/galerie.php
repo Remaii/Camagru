@@ -1,5 +1,6 @@
 <?php 
 session_start();
+include '../config/database.php';
 ?>
 <html>
 <head>
@@ -12,26 +13,32 @@ session_start();
 <!-- Menu  -->
 	<div id="head">
 		<div><a href="galerie.php">Galerie</a></div>
-		<!-- <div><a href="function/select.php?to=galerie">Galerie</a></div> -->
 		<div><a href="../function/select.php?to=photo">Photomathon</a></div>
 <?php
 	if ($_SESSION['login'] != 'Unregister') {
-		echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
+		if ($_SESSION['login'] == 'admin') {
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../config/setup.php\">Setup</a> <a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
+		} else {
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
+		}
 	}
 	else {
-		echo "<div><a href=\"../function/select.php?to=login\">Register/Login</a></div>";
+		echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../function/select.php?to=login\">Register/Login</a></div>";
 	}
 ?>	
 	</div>
 
-<!-- Galerie -->
+<!-- Aperçu -->
 <div id="apercu">
-	<img id="imgApe" src="../public/admin58b185679ac5e.png"><!-- src="../rsc/hidden.png"> -->
-	<img id="like" src="../rsc/like.png">
+	<!-- <img id="imgApe" src="../public/admin58b358a8ac3b2.png"> -->
+	<img id="imgApe" src="../rsc/hidden.png">
+	<img id="like" src="../rsc/hidden.png">
 	<div id="comment"></div>
 </div>
+
+<!-- Galerie -->
 <div id="miniGal"><?php
-include '../config/database.php';
+
 // nombre d'element par pages
 $nbPerPage = 5;
 // recuperation du nombre d'element total
@@ -63,7 +70,7 @@ try {
 } catch (Exception $e){
 	echo 'Error: affichage des elements '.$e;
 }
-echo '<p id="pager" align="center">Page : ';
+echo '</div><p id="pager" align="center">Page : ';
 for( $i = 1; $i <= $nbDePage; $i++) {
 	if( $i == $pageActuel) {
 		echo ' [ '.$i.' ] '; 
@@ -74,52 +81,9 @@ for( $i = 1; $i <= $nbDePage; $i++) {
 }
 echo '</p>';
 ?>
-</div>
-<script type="text/javascript">
-function getApe(name) {
-	var img = document.getElementById('imgApe');
-
-	img.src = "../"+ name;
-}
-
-var like = document.getElementById('like');
-
-like.addEventListener('click', function(){
-	var xhr = new XMLHttpRequest(),
-		to = document.getElementById('imgApe').src,
-		tolen = to.indexOf('public'),
-		but = document.getElementById('like'),
-		val_like = but.src,
-		len = val_like.indexOf('rsc');
-
-	val_like = val_like.slice(len);
-	to = to.slice(tolen);
-	if (val_like == 'rsc/like.png') {
-		xhr.onreadystatechange = function(){
-			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				
-				//alert(xhr.responseText);
-			}
-			but.src = '../rsc/cross.png';
-		}
-		xhr.open("POST", "../function/like.php");
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("like=1&name="+val_like+"&to="+to);
-	}
-	else if (val_like != 'rsc/like.png'){
-		xhr.onreadystatechange = function(){
-			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				but.src = '../rsc/like.png';
-				//alert(xhr.responseText);
-			}
-		}
-		xhr.open("POST", "../function/like.php");
-		xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-		xhr.send("like=0&name="+val_like+"&to="+to);
-	}
-}, false);
-
-</script>
+<!-- </div> -->
+<script type="text/javascript" src="../js/function.js"></script>
+<script type="text/javascript" src="../js/galerie.js"></script>
 
 <!-- Footer -->
 	<div id="footer">
