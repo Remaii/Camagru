@@ -266,5 +266,21 @@ a:active
 	width: 100%;
 	height: 45%;
 }
+#form_log
+{
+	position: initial;
+	padding-left: 40vw;
+	padding-top: 20vh;
+/*	left: 25%;
+	top: 20%;*/
+	text-align: left;
+	width: 20vw;
+}
+#changeur
+{
+	position: absolute;
+	left: 10%;
+	top: 20%;
+}
 
 
