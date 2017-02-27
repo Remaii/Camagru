@@ -35,6 +35,7 @@ if ($_POST['login'] && $_POST['pwd'] && $_POST['cfpwd'] && $_POST['mail']) {
 	$mail = $_POST['mail'];
 	if (strstr($mail, '@') == FALSE) {
 		echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Mauvais format de Mail');window.location.href = ('../index.php');</script>";
+		return ;
 	}
 	if ($passwd === $cfmpasswd) {
 		while ($logs = $reponse->fetch()) {
@@ -51,11 +52,12 @@ if ($_POST['login'] && $_POST['pwd'] && $_POST['cfpwd'] && $_POST['mail']) {
 		$state->execute();
 		$_SESSION['login'] = $login;
 		sendMail($mail, $login, 'register');
-		$_SESSION['select'] = "htdocs/home.php";
+		$_SESSION['select'] = "htdocs/photo.php";
 		header('Location: ../');
 	}
 }
 else {
 	echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Ta rien mis ou un des champs est vide :/');window.location.href = ('../index.php');</script>";
+	return ;
 }
 ?>

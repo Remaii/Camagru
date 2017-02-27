@@ -11,7 +11,7 @@
 <?php
 	if ($_SESSION['login'] != 'Unregister') {
 		if ($_SESSION['login'] == 'admin') {
-			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"config/setup.php\">Setup</a> <a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../phpmyadmin\">Phpmyadmin</a> <a href=\"config/setup.php\">Setup</a> <a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
 		} else {
 			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"function/select.php?to=compte\">ton Compte</a> <a href=\"function/logout.php\">Logout</a></div>";
 		}

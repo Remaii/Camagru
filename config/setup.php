@@ -72,16 +72,15 @@ try {
 			$nb_photo++;
 		}
 	}
-	echo " il y a ".$i." fichier(s)<br>Ajout:";
+	echo " il y a ".$nb_photo." fichier(s)<br>Ajout:";
 	$j = 0;
 	while ($j < $nb_photo) {
 		echo ".";
-		$like = rand('0','100');
+		$like = rand('0',$nb_photo);
 		$req = "INSERT INTO `Photo`(`id_auteur`, `photo`, `nb_like`) VALUES ('1','public/".$file[$j]."','".$like."')";
 		$freshbdd->query($req);
 		$j++;
 	}
-	header('Location: ../config/setup.php');
 } catch (Exception $e) {
 	echo "Error: ".$e;
 }

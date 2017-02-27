@@ -96,21 +96,25 @@ function sendMail($mail, $login, $forwhat) {
 		<html>
 		<body>
 			<h1>Bonjour, ".$login."</h1><br>
+			<p>Bienvenue sur Camagru!</p>
 			<p>Cette e-mail est envoyer par un Script ne pas repondre</p>
-			<a href=\"http://localhost:8080/Camagru/htdocs/confirm.php?login=".$login."\">Lien d'activation</a>
 		</body>
 		</html>";
 	}
 	else if ($forwhat === "pwd") {
-		$mabase = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
+		// $mabase = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$sujet = "Hey ".$login." tu a demander un nouveau mot de passe !";
-		$pwd = md5(rand());
+		$pwd = chr(rand(65,90));
+		$pwd .= rand('0', '9');
+		$pwd .= chr(rand(97,122));
+		$pwd .= chr(rand(97,122));
+		$pwd .= chr(rand(65,90));
+		$pwd .= rand('0', '9');
 		$requ = "UPDATE Account SET passwd = :pwd WHERE login = :login";
-		$state = $mabase->prepare($requ);
+		$state = $bdd->prepare($requ);
 		$state->bindParam(':pwd', hash('whirlpool',$pwd), PDO::PARAM_STR);
 		$state->bindParam(':login', $login, PDO::PARAM_STR);
 		$state->execute();
-		// $result = $bdd->query($requ);
 		$mess_html = "
 		<html>
 		<body>
