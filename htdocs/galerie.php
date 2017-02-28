@@ -34,7 +34,12 @@ include '../config/database.php';
 	<!-- <img id="like" src="../rsc/load1.gif"> -->
 	<img id="imgApe" src="../rsc/hidden.png">
 	<img id="like" src="../rsc/hidden.png">
-	<div id="nb_like" value=""><span style="position:absolute;top:0px;left:0px;"></span></div>
+	<div id="nb_like" value=""></div>
+	<form id="tocomment" method="POST" action="../function/addCom.php">
+		<input id="id_pic" type="text" style="display: none;" name="id_photo" value="">
+		<textarea type="text" style="width: 100%;" name="comment" value=""></textarea>
+		<input type="submit" name="submit" value="Commenter">
+	</form>
 	<div id="comment">
 		
 	</div>
@@ -91,8 +96,8 @@ echo '</p>';
 
 <!-- Footer -->
 	<div id="footer">
-		<p id="logued_on">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>
-		<p id="credit">Camagru © rthidet</p>
+		<p id="logued_on" style="margin-top: 25%;">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>
+		<p id="credit"  style="margin-top: 25%;">Camagru © rthidet</p>
 	</div>
 </body>
 </html>

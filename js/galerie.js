@@ -1,3 +1,46 @@
+function getComment(name) {
+	var xhr = getXHR(),
+		user = document.getElementById('userName').getAttribute('value'),
+		comment = document.getElementById('comment');
+
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			comment.innerHTML = xhr.responseText;
+		}
+	}
+	xhr.open("POST", "../function/getcomment.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("name="+name+"&user="+user);
+}
+
+function getLike(name) {
+	var xhr = getXHR(),
+		nblike = document.getElementById('nb_like');
+
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			nblike.innerHTML = xhr.responseText;
+		}
+	}
+	xhr.open("POST", "../function/getlike.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("name="+name);
+}
+
+function getIdPic(name) {
+	var xhr = getXHR(),
+		pic = document.getElementById('id_pic');
+
+	xhr.onreadystatechange = function(){
+		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+			pic.setAttribute('value', xhr.responseText);
+		}
+	}
+	xhr.open("POST", "../function/getIdPic.php");
+	xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhr.send("name="+name);
+}
+
 function getApe(name) {
 	var img = document.getElementById('imgApe'),
 		user = document.getElementById('userName').getAttribute('value'),
@@ -15,6 +58,9 @@ function getApe(name) {
 				like.src = '../rsc/liked'+rand+'.png';
 			}
 			img.src = "../"+name;
+			getLike(name);
+			getComment(name);
+			getIdPic(name);
 		}
 	}
 	xhr.open("POST", "../function/bislike.php");
@@ -41,6 +87,7 @@ like.addEventListener('click', function(){
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 					but.src = '../rsc/liked1.png';
+					getLike(to);
 			}
 			else if (xhr.readyState < 4) {
 				but.src = '../rsc/load1.gif';
@@ -53,6 +100,7 @@ like.addEventListener('click', function(){
 		xhr.onreadystatechange = function(){
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 					but.src = '../rsc/like.png';
+					getLike(to);
 			}
 			else if (xhr.readyState < 4) {
 					but.src = '../rsc/load1.gif';

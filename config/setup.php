@@ -15,54 +15,72 @@ try {
 	$oldbdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 	if ($oldbdd != null) {
 		echo "Suppression de l'ancienne base ->";
-		$oldbdd->query('DROP DATABASE IF EXISTS Camagru');
+		$sql = 'DROP DATABASE IF EXISTS Camagru';
+		$state = $oldbdd->prepare($sql);
+		$state->execute();
 		$oldbdd = null;
 		echo " Base Camagru supprimer <br><br>";
 	}
-	echo "Creation d'une nouvelle Base de Donnée<br>";
+	echo "Création d'une nouvelle Base de Donnée<br>";
 	$newbdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-	$reponse = $newbdd->query('CREATE DATABASE IF NOT EXISTS Camagru');
-	$reponse->closeCursor();
-	echo "Connection a la nouvelle base<br><br>";
+	
+	$sql = 'CREATE DATABASE IF NOT EXISTS Camagru';
+	$state = $newbdd->prepare($sql);
+	$state->execute();
+
+	echo "Connection à la nouvelle base<br><br>";
 	$freshbdd = new PDO($DB_DSNCP, $DB_USER, $DB_PASSWORD);
 	$freshbdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	echo "Creation de la table Account -->";
-	$reponse = $freshbdd->query('CREATE TABLE IF NOT EXISTS Account (
+	echo "Création de la table Account -->";
+
+	$sql = 'CREATE TABLE IF NOT EXISTS Account (
 		id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		login VARCHAR(255),
 		passwd VARCHAR(255),
 		mail VARCHAR(255),
 		rank INT
-	)');
-	echo " Table account creer -->";
+	)';
+	$state = $freshbdd->prepare($sql);
+	$state->execute();
+	
+	echo " Table account créer -->";
 	$pass = '6a4e012bd9583858a5a6fa15f58bd86a25af266d3a4344f1ec2018b778f29ba83be86eb45e6dc204e11276f4a99eff4e2144fbe15e756c2c88e999649aae7d94';
-	$reponse = $freshbdd->query("INSERT INTO `Account`(`login`, `passwd`, `mail`, `rank`) VALUES ('admin','".$pass."','rthidet@student.42.fr','1')");
-	$reponse->closeCursor();
-	echo " Admin ajouter<br><br>";
-	echo "Creation de la table photo -->";
-	$reponse = $freshbdd->query('CREATE TABLE IF NOT EXISTS Photo (
+	
+	$sql = "INSERT INTO `Account`(`login`, `passwd`, `mail`, `rank`) VALUES ('admin','".$pass."','rthidet@student.42.fr','1')";
+	$state = $freshbdd->prepare($sql);
+	$state->execute();
+	
+	echo " Admin ajouté<br><br>";
+	echo "Création de la table photo -->";
+	$sql = 'CREATE TABLE IF NOT EXISTS Photo (
 		id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		id_auteur INT NOT NULL,
 		photo VARCHAR(255),
 		nb_like INT
-	)');
-	$reponse->closeCursor();
-	echo " Table Photo creer<br><br>Creation table Comment -->";
-	$reponse = $freshbdd->query('CREATE TABLE IF NOT EXISTS Comment (
+	)';
+	$state = $freshbdd->prepare($sql);
+	$state->execute();
+
+	echo " Table Photo créer<br><br>Création table Comment -->";
+	$sql = 'CREATE TABLE IF NOT EXISTS Comment (
 		id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		id_photo INT NOT NULL,
 		id_auteur INT NOT NULL,
-		comment VARCHAR(300)
-	)');
-	$reponse->closeCursor();
-	echo " Table Comment creer<br><br>Creation table Like -->";
-	$reponse = $freshbdd->query('CREATE TABLE IF NOT EXISTS t_like (
+		comment VARCHAR(145)
+	)';
+	$state = $freshbdd->prepare($sql);
+	$state->execute();
+
+	echo " Table Comment créer<br><br>Création table Like -->";
+	$sql = 'CREATE TABLE IF NOT EXISTS t_like (
 		id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 		id_photo INT NOT NULL,
 		id_liker INT NOT NULL
-	)');
-	$reponse->closeCursor();
-	echo " Table like creer<br><br>Verification de la presence de photo -->";
+	)';
+	$state = $freshbdd->prepare($sql);
+	$state->execute();
+
+	echo " Table like créer<br><br>Vérification de la présence de photo -->";
 	$dir = '../public';
 	$dh = opendir($dir);
 	$nb_photo = 0;
@@ -77,12 +95,14 @@ try {
 	while ($j < $nb_photo) {
 		echo ".";
 		$like = rand('0',$nb_photo);
-		$req = "INSERT INTO `Photo`(`id_auteur`, `photo`, `nb_like`) VALUES ('1','public/".$file[$j]."','".$like."')";
-		$freshbdd->query($req);
+		$sql = "INSERT INTO `Photo`(`id_auteur`, `photo`, `nb_like`) VALUES ('1','public/".$file[$j]."','".$like."')";
+		$state = $freshbdd->prepare($sql);
+		$state->execute();
 		$j++;
 	}
-} catch (Exception $e) {
-	echo "Error: ".$e;
+	echo " Done";
+} catch (PDOException $e) {
+	echo "Error: ".$e->getMessage();
 }
 ?>
 </div>

@@ -23,6 +23,6 @@
 	</div>
 
 	<div id="footer">
-		<p id="logued_on">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>
-		<p id="credit">Camagru © rthidet</p>
+		<p id="logued_on" style="margin-top: 25%;">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>
+		<p id="credit"  style="margin-top: 25%;">Camagru © rthidet</p>
 	</div>

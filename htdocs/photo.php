@@ -46,9 +46,9 @@ if ($_SESSION['login'] != 'Unregister') {
 			echo '<div onclick="'.$func.'"><img class="imgdone" src="'.$log['photo'].'" alt="'.$log['photo'].'"></div>';
 		}
 	}
-	catch (Exception $e)
+	catch (PDOException $e)
 	{
-		echo "Error: ".$e;
+		echo "Error: ".$e->getMessage();
 	}
 ?>
 </div>

@@ -25,6 +25,19 @@ function getIdUser($usr) {
 		return $e;
 	}
 }
+function getNameUser($id) {
+	include '../config/database.php';
+
+	try {
+		$req = "SELECT * FROM `Account` WHERE `id`='".$id."'";
+		$reponse = $bdd->query($req);
+		$log = $reponse->fetch();
+		$name = $log['login'];
+		return $name;
+	} catch (Exception $e) {
+		return $e;
+	}
+}
 function searchLike($id_photo, $id_liker) {
 	include '../config/database.php';
 
@@ -62,8 +75,8 @@ function like($id_photo, $id_liker) {
 		$req = "INSERT INTO `t_like`(`id_photo`, `id_liker`) VALUES ('".$id_photo."','".$id_liker."')";
 		$bdd->query($req);
 		update($id_photo, '1');
-	} catch (Exception $e) {
-		echo $e;
+	} catch (PDOException $e) {
+		echo "Like fail: ".$e->getMessage();
 	}
 }
 function dislike($id_photo, $id_liker) {
@@ -73,8 +86,8 @@ function dislike($id_photo, $id_liker) {
 		$req = "DELETE FROM `t_like` WHERE `id_photo`='".$id_photo."' AND `id_liker`='".$id_liker."'";
 		$bdd->query($req);
 		update($id_photo, '-1');
-	} catch (Exception $e) {
-		echo $e;
+	} catch (PDOException $e) {
+		echo "Dislike fail: ".$e->getMessage();
 	}
 }
 function sendMail($mail, $login, $forwhat) {
@@ -102,7 +115,6 @@ function sendMail($mail, $login, $forwhat) {
 		</html>";
 	}
 	else if ($forwhat === "pwd") {
-		// $mabase = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
 		$sujet = "Hey ".$login." tu a demander un nouveau mot de passe !";
 		$pwd = chr(rand(65,90));
 		$pwd .= rand('0', '9');
