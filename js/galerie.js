@@ -45,9 +45,15 @@ function getApe(name) {
 	var img = document.getElementById('imgApe'),
 		user = document.getElementById('userName').getAttribute('value'),
 		like = document.getElementById('like'),
+		tocom = document.getElementById('tocomment'),
 		xhr = getXHR(),
+		onload = img.getAttribute('onload'),
 		rand = Math.floor((Math.random() * 5) + 1);
 
+	if (onload != '') {
+		img.setAttribute('onload', '');
+	}
+	tocom.setAttribute('style', 'display:block;');
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 			if (xhr.responseText === '1') {

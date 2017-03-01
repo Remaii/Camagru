@@ -7,8 +7,9 @@ try {
 	$bdd = new PDO($DB_DSNCP, $DB_USER, $DB_PASSWORD);
 	$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
-catch (Exception $e) {
-	$bdd = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-	$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+catch (PDOException $e) {
+	$link = $_SERVER['HTTP_HOST']."/Camagru/config/setup.php";
+	// header('Location: '.$link'.');
+	echo "<link rel='stylesheet' type='text/css' href='../style/style.css'><script>window.location.href = ('http://".$link."');</script>";
 }
 ?>

@@ -60,7 +60,7 @@ a:active
 	bottom: 5%;
 	right: 0%;
 	border: 2px solid blue;
-	overflow-y: none;
+	overflow-y: hidden;
 }
 .imgGal
 {
@@ -225,7 +225,7 @@ a:active
 	left: 1%;
 	right: 31%;
 	border: 2px solid green;
-	overflow: none;
+	overflow: hidden;
 }
 #imgApe
 {
@@ -274,7 +274,7 @@ a:active
 	width: 50%;
 	height: 6%;
 	text-align: center;
-	overflow: none;
+	overflow: hidden;
 }
 #form_log
 {
@@ -290,5 +290,3 @@ a:active
 	left: 10%;
 	top: 20%;
 }
-
-

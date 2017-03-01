@@ -1,7 +1,8 @@
 <?php
 session_start();
 include('../config/database.php');
-$db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
-$reponse = $db->query("UPDATE Account SET rank='2' WHERE login='".$_GET['login']."';");
+$reponse = $bdd->prepare("UPDATE Account SET rank='2' WHERE `login`= :log");
+$reponse->bindValue(':log', $_GET['login'], PDO::PARAM_STR);
+$reponse->execute();
 header('Location: ../');
 ?>

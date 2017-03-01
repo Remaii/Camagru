@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include '../config/database.php';
+include '../function/function.php';
 ?>
 <html>
 <head>
@@ -30,14 +31,22 @@ include '../config/database.php';
 
 <!-- Aperçu -->
 <div id="apercu">
-	<!-- <img id="imgApe" src="../public/leopard.jpg"> -->
-	<!-- <img id="like" src="../rsc/load1.gif"> -->
-	<img id="imgApe" src="../rsc/hidden.png">
-	<img id="like" src="../rsc/hidden.png">
+<?php
+	if (isset($_GET['id'])) {
+		$photo = getNamePhoto(intval($_GET['id']));
+		echo '<img id="imgApe" onload="getApe(\''.$photo.'\');" src="../rsc/hidden.png">
+		<img id="like" src="../rsc/hidden.png">';
+
+	}
+	else {
+		echo '<img id="imgApe" src="../rsc/hidden.png">
+		<img id="like" src="../rsc/hidden.png">';	
+	}
+?>
 	<div id="nb_like" value=""></div>
-	<form id="tocomment" method="POST" action="../function/addCom.php">
+	<form id="tocomment" method="POST" action="../function/addCom.php" style="display: none;">
 		<input id="id_pic" type="text" style="display: none;" name="id_photo" value="">
-		<textarea type="text" style="width: 100%;" name="comment" value=""></textarea>
+		<textarea type="text" style="width: 100%;height:50%;" name="comment" value=""></textarea>
 		<input type="submit" name="submit" value="Commenter">
 	</form>
 	<div id="comment">
@@ -52,12 +61,13 @@ include '../config/database.php';
 $nbPerPage = 5;
 // recuperation du nombre d'element total
 try {
-	$reponse = $bdd->query("SELECT COUNT(*) AS total FROM `Photo`");
-	$donnee = $reponse->fetch();
+	$state = $bdd->prepare("SELECT COUNT(*) AS 'total' FROM `Photo`");
+	$state->execute();
+	$donnee = $state->fetch(PDO::FETCH_ASSOC);
 	$total = $donnee['total'];
 	$nbDePage = ceil($total/$nbPerPage);
-} catch (Exception $e){
-	echo 'Error: recuperation du nombre d\'element '.$e;
+} catch (PDOException $e){
+	echo 'Error: recuperation du nombre d\'element '.$e->getMessage();
 }
 // definition de la page actuelle
 if (isset($_GET['page'])) {
@@ -71,23 +81,30 @@ if (isset($_GET['page'])) {
 // definition de la premiere entree pour la bdd
 $premiereEntree = ($pageActuel - 1) * $nbPerPage;
 try {
-	$retour = $bdd->query("SELECT * FROM `Photo` ORDER BY `id` LIMIT ".$premiereEntree.", ".$nbPerPage);
-	while ($log = $retour->fetch()) {
+	$state = $bdd->prepare("SELECT * FROM `Photo` ORDER BY `id` LIMIT ".$premiereEntree.", ".$nbPerPage);
+	$state->execute();
+	while ($log = $state->fetch(PDO::FETCH_ASSOC)) {
 		$tmp = "getApe('".$log['photo']."')";
 		echo '<div onclick="'.$tmp.'"><img class="imgGal" src="../'.$log['photo'].'"></div>';
 	}
-} catch (Exception $e){
-	echo 'Error: affichage des elements '.$e;
+} catch (PDOException $e){
+	echo 'Error: affichage des elements '.$e->getMessage();
 }
 echo '</div><p id="pager" align="center">Page : ';
-for( $i = 1; $i <= $nbDePage; $i++) {
-	if( $i == $pageActuel) {
-		echo ' [ '.$i.' ] '; 
-	}
-	else {
-		echo ' <a href="galerie.php?page='.$i.'">'.$i.'</a> ';
+if ($nbDePage != 0) {
+	for($i=1;$i<=$nbDePage;$i++) {
+		if($i == $pageActuel) {
+			echo '['.$i.']'; 
+		}
+		else {
+			echo ' <a href="galerie.php?page='.$i.'">'.$i.'</a> ';
+		}
 	}
 }
+else {
+	echo '[0]';
+}
+
 echo '</p>';
 ?>
 <!-- </div> -->

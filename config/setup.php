@@ -82,7 +82,13 @@ try {
 
 	echo " Table like créer<br><br>Vérification de la présence de photo -->";
 	$dir = '../public';
-	$dh = opendir($dir);
+	
+	if (!($dh = opendir($dir))) {
+		echo "<br>Oh le Dossier 'public' exist pas :/<br>";
+		mkdir($dir);
+		echo "Création<br>";
+		$dh = opendir($dir);
+	}
 	$nb_photo = 0;
 	while (false !== ($filename = readdir($dh))) {
 		if ($filename[0] != '.') {
@@ -90,17 +96,26 @@ try {
 			$nb_photo++;
 		}
 	}
-	echo " il y a ".$nb_photo." fichier(s)<br>Ajout:";
-	$j = 0;
-	while ($j < $nb_photo) {
-		echo ".";
-		$like = rand('0',$nb_photo);
-		$sql = "INSERT INTO `Photo`(`id_auteur`, `photo`, `nb_like`) VALUES ('1','public/".$file[$j]."','".$like."')";
-		$state = $freshbdd->prepare($sql);
-		$state->execute();
-		$j++;
+	if ($nb_photo != 0) {
+		echo " il y a ".$nb_photo." fichier(s)<br>Ajout:";
+		$j = 0;
+		while ($j < $nb_photo) {
+			echo ".";
+			$like = rand('0',$nb_photo);
+			$sql = "INSERT INTO `Photo`(`id_auteur`, `photo`, `nb_like`) VALUES ('1','public/".$file[$j]."','".$like."')";
+			$state = $freshbdd->prepare($sql);
+			$state->execute();
+			$j++;
+		}
+		echo " Done";
 	}
-	echo " Done";
+	else {
+		echo " Aucune Photo";
+	}
+	echo "<br>Serveur Réinitialisé<br>";
+	if ($_SESSION['login'] != 'admin') {
+		echo "<script>window.location.href = ('http://".$_SERVER['HTTP_HOST']."/Camagru/index.php');</script>";
+	}
 } catch (PDOException $e) {
 	echo "Error: ".$e->getMessage();
 }

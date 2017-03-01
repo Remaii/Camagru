@@ -31,15 +31,18 @@ if ($_SESSION['login'] != 'Unregister') {
 <?php
 	include 'config/database.php';
 	try {
-		$id = "SELECT * FROM `Account` WHERE `login`='".$_SESSION['login']."'";
-		$reponse = $bdd->query($id);
-		while ($log = $reponse->fetch())
+		$id = "SELECT * FROM `Account` WHERE `login`=:log";
+		$state = $bdd->prepare($id);
+		$state->bindValue(':log', $_SESSION['login'], PDO::PARAM_STR);
+		$state->execute();
+		while ($log = $state->fetch(PDO::FETCH_ASSOC))
 		{
 			$id = $log['id'];
 		}
-		$req = "SELECT * FROM Photo WHERE `id_auteur`='".$id."' ORDER BY  `id` DESC";
-		$reponse = $bdd->query($req);
-		while ($log = $reponse->fetch())
+		$req = "SELECT * FROM `Photo` WHERE `id_auteur`= '".$id."' ORDER BY `id` DESC";
+		$state = $bdd->prepare($req);
+		$state->execute();
+		while ($log = $state->fetch(PDO::FETCH_ASSOC))
 		{
 			$path = basename($log['photo']);
 			$func = "deleteIMG('public/".$path."')";

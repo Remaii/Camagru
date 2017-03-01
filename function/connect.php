@@ -6,9 +6,9 @@ $state = $bdd->prepare($reponse);
 $state->execute();
 $logst = 1;
 if ($_POST['login'] != '' && $_POST['pwd'] != '') {
-		while ($logs = $state->fetch()) {
-			if ($logs['login'] == htmlentities($_POST['login'])) {
-				if ($logs['passwd'] == hash('whirlpool', htmlentities($_POST['pwd']))) {
+		while ($logs = $state->fetch(PDO::FETCH_ASSOC)) {
+			if ($logs['login'] == htmlspecialchars($_POST['login'])) {
+				if ($logs['passwd'] == hash('whirlpool', htmlspecialchars($_POST['pwd']))) {
 					$_SESSION['login'] = $logs['login'];
 					$logst = 0;
 				}

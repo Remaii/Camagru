@@ -3,10 +3,11 @@ require('../config/database.php');
 require('function.php');
 if ($_POST['mail'] != null || $_POST['mail'] != '') {
 	$ok = 1;
-	$mail = $_POST['mail'];
+	$mail = htmlspecialchars($_POST['mail']);
 	$req = "SELECT * FROM Account";
-	$reponse = $bdd->query($req);
-	while ($log = $reponse->fetch(PDO::FETCH_ASSOC)) {
+	$state = $bdd->prepare($req);
+	$state->execute();
+	while ($log = $state->fetch(PDO::FETCH_ASSOC)) {
 		$login = $log['login'];
 		if ($mail === $log['mail']) {
 			$ok = 0;

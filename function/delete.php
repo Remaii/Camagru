@@ -4,13 +4,14 @@ if ($_POST['path']){
 	$path = $_POST['path'];
 	try {
 		$req = "DELETE FROM `Photo` WHERE `photo`='".$path."'";
-		$reponse = $bdd->query($req);
+		$state = $bdd->prepare($req);
+		$state->execute();
 		$path = "../".$path;
 		unlink($path);
 		echo 'OK';
 	}
-	catch (Exception $e) {
-		echo $e;
+	catch (PDOException $e) {
+		echo "Error delete photo: ".$e->getMessage();
 	}
 }
 ?>

@@ -26,7 +26,9 @@ function checkSecur($pwd) {
 	}
 }
 
-$reponse = $bdd->query("SELECT * FROM Account");
+$req = "SELECT * FROM `Account`";
+$state = $bdd->prepare($req);
+$state->execute();
 if ($_POST['login'] && $_POST['pwd'] && $_POST['cfpwd'] && $_POST['mail']) {
 	$login = $_POST['login'];
 	$passwd = $_POST['pwd'];
@@ -42,13 +44,12 @@ if ($_POST['login'] && $_POST['pwd'] && $_POST['cfpwd'] && $_POST['mail']) {
 		return ;
 	}
 	if ($passwd === $cfmpasswd) {
-		while ($logs = $reponse->fetch()) {
+		while ($logs = $state->fetch(PDO::FETCH_ASSOC)) {
 			if ($logs['login'] == $login || $logs['mail'] == $mail) {
 				echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Utilisateur ou Email deja utiliser');window.location.href = ('../index.php');</script>";
 				return ;
 			}
 		}
-		$reponse->closeCursor();
 		$requete = "INSERT INTO `Account`(`login`, `passwd`, `mail`, `rank`) VALUES (:login, :passwd, :mail,'3')";
 		$state = $bdd->prepare($requete);
 		$state->bindValue(':login', $_POST['login'], PDO::PARAM_STR);
