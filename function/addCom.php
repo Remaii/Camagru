@@ -26,5 +26,4 @@ if (isset($_POST['comment']) && isset($_POST['id_photo']) && $_POST['submit'] ==
 } else {
 	return;
 }
-
 ?>

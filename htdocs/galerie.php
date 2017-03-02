@@ -9,6 +9,7 @@ include '../function/function.php';
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
 	<!-- <meta http-equiv="refresh" content="2"> -->
 	<title>Camagru</title>
+<!-- 	<script type="text/javascript" src="../js/galerie.js"></script> -->
 </head>
 <body>
 <!-- Menu  -->
@@ -34,7 +35,7 @@ include '../function/function.php';
 <?php
 	if (isset($_GET['id'])) {
 		$photo = getNamePhoto(intval($_GET['id']));
-		echo '<img id="imgApe" onload="getApe(\''.$photo.'\');" src="../rsc/hidden.png">
+		echo '<img id="imgApe" onload="getApe(\''.$photo.'\')" src="../'.$photo.'">
 		<img id="like" src="../rsc/hidden.png">';
 
 	}
@@ -107,7 +108,6 @@ else {
 
 echo '</p>';
 ?>
-<!-- </div> -->
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="../js/galerie.js"></script>
 

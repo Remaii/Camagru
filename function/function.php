@@ -156,7 +156,7 @@ function mailTo($id_aut_com, $id_photo, $comment) {
 		<h1>Bonjour, un nouveau commentaire est arrivé</h1><br>
 		<p>".$name." a poster:</p>
 		<p>".$comment."</p><br>
-		<a href=\"http://".$_SERVER['HTTP_HOST']."/htdocs/galerie.php?id=".$id_photo."\">La Photo !</a>
+		<a href=\"http://".$_SERVER['HTTP_HOST']."/Camagru/htdocs/galerie.php?id=".$id_photo."\">La Photo !</a>
 		<p>Cette e-mail est envoyer par un Script ne pas repondre</p>
 	</body>
 	</html>";
