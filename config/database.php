@@ -9,7 +9,6 @@ try {
 }
 catch (PDOException $e) {
 	$link = $_SERVER['HTTP_HOST']."/Camagru/config/setup.php";
-	// header('Location: '.$link'.');
 	echo "<link rel='stylesheet' type='text/css' href='../style/style.css'><script>window.location.href = ('http://".$link."');</script>";
 }
 ?>
