@@ -291,3 +291,21 @@ a:active
 	left: 10%;
 	top: 20%;
 }
+#ch_pwd
+{
+	position: absolute;
+	top: 35%;
+	left: 25%;
+	width: 50%;
+	height: 5%;
+	text-align: center;
+}
+#rm_usr
+{
+	position: absolute;
+	top: 55%;
+	left: 25%;
+	width: 50%;
+	height: 5%;
+	text-align: center;
+}

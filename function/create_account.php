@@ -3,29 +3,6 @@ session_start();
 include('../config/database.php');
 include('function.php');
 
-function checkSecur($pwd) {
-	$maj = 0;
-	$num = 0;
-	$i = 0;
-	$len = strlen($pwd);
-	while ($i < $len) {
-		$tmp = ord($pwd[$i]);
-		if ($tmp >= 48 && $tmp <= 57) {
-			$num++;
-		}
-		else if ($tmp >= 65 && $tmp <= 90) {
-			$maj++;
-		}
-		$i++;
-	}
-	if ($maj > 0 && $num > 0 && $len > 4) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 $req = "SELECT * FROM `Account`";
 $state = $bdd->prepare($req);
 $state->execute();
