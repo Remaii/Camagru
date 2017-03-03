@@ -198,13 +198,14 @@ function sendMail($mail, $login, $forwhat) {
 	$header .= "X-Mailer: PHP/".phpversion();
 
 	if ($forwhat === "register") {
-		$sujet = "Hey ".$login." valide ton inscription !";
+		$sujet = "Hey ".$login." ton inscription est validé!";
 		$mess_html = "
 		<html>
 		<body>
 			<h1>Bonjour, ".$login."</h1><br>
 			<p>Bienvenue sur Camagru!</p>
 			<p>Cette e-mail est envoyer par un Script ne pas repondre</p>
+			<a href=\"http://".$_SERVER['HTTP_HOST']."/Camagru/htdocs/confirm.php?login=".$login."\">Si tu souhaite valider ton mail</a>
 		</body>
 		</html>";
 	}

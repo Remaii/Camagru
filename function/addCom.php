@@ -2,7 +2,6 @@
 session_start();
 include '../config/database.php';
 include 'function.php';
-
 if ($_SESSION['login'] == 'Unregister') {
 	echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Connecte toi pour pourvoir commenter !');window.location.href = ('../index.php');</script>";
 	return ;
@@ -11,8 +10,13 @@ if (isset($_POST['comment']) && isset($_POST['id_photo']) && $_POST['submit'] ==
 	$id_auteur = getIdUser($_SESSION['login']);
 	$id_pic = $_POST['id_photo'];
 	$comment = $_POST['comment'];
+	$len = strlen($comment);
 	if ($id_pic == 0 || $id_auteur == 0) {
 		echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Aucune photo a commenter :/');window.location.href = ('../htdocs/galerie.php');</script>";
+		return ;
+	}
+	if ($len > 145) {
+		echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Les commentaires sont limité à 145 caractères');window.location.href = ('../htdocs/galerie.php?id=".$id_pic."');</script>";
 		return ;
 	}
 	mailTo($id_auteur, $id_pic, $comment);

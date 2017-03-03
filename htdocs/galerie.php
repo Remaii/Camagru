@@ -7,9 +7,7 @@ include '../function/function.php';
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
-	<!-- <meta http-equiv="refresh" content="2"> -->
 	<title>Camagru</title>
-<!-- 	<script type="text/javascript" src="../js/galerie.js"></script> -->
 </head>
 <body>
 <!-- Menu  -->
@@ -19,7 +17,7 @@ include '../function/function.php';
 <?php
 	if ($_SESSION['login'] != 'Unregister') {
 		if ($_SESSION['login'] == 'admin') {
-			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../phpmyadmin\">Phpmyadmin</a> <a href=\"../config/setup.php\">Setup</a> <a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
+			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../../phpmyadmin\">Phpmyadmin</a> <a href=\"../config/setup.php\">Setup</a> <a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
 		} else {
 			echo "<div id=\"userName\" value=\"".$_SESSION['login']."\"><a href=\"../function/select.php?to=compte\">ton Compte</a> <a href=\"../function/logout.php\">Logout</a></div>";
 		}
@@ -29,7 +27,6 @@ include '../function/function.php';
 	}
 ?>	
 	</div>
-
 <!-- Aperçu -->
 <div id="apercu">
 <?php
@@ -37,7 +34,6 @@ include '../function/function.php';
 		$photo = getNamePhoto(intval($_GET['id']));
 		echo '<img id="imgApe" onload="getApe(\''.$photo.'\')" src="../'.$photo.'">
 		<img id="like" src="../rsc/hidden.png">';
-
 	}
 	else {
 		echo '<img id="imgApe" src="../rsc/hidden.png">
@@ -50,14 +46,10 @@ include '../function/function.php';
 		<textarea type="text" style="width: 100%;height:50%;" name="comment" value=""></textarea>
 		<input type="submit" name="submit" value="Commenter">
 	</form>
-	<div id="comment">
-		
-	</div>
+	<div id="comment"></div>
 </div>
-
 <!-- Galerie -->
 <div id="miniGal"><?php
-
 // nombre d'element par pages
 $nbPerPage = 5;
 // recuperation du nombre d'element total
@@ -82,7 +74,7 @@ if (isset($_GET['page'])) {
 // definition de la premiere entree pour la bdd
 $premiereEntree = ($pageActuel - 1) * $nbPerPage;
 try {
-	$state = $bdd->prepare("SELECT * FROM `Photo` ORDER BY `id` LIMIT ".$premiereEntree.", ".$nbPerPage);
+	$state = $bdd->prepare("SELECT * FROM `Photo` ORDER BY `id` DESC LIMIT ".$premiereEntree.", ".$nbPerPage);
 	$state->execute();
 	while ($log = $state->fetch(PDO::FETCH_ASSOC)) {
 		$tmp = "getApe('".$log['photo']."')";
@@ -105,12 +97,10 @@ if ($nbDePage != 0) {
 else {
 	echo '[0]';
 }
-
 echo '</p>';
 ?>
 <script type="text/javascript" src="../js/function.js"></script>
 <script type="text/javascript" src="../js/galerie.js"></script>
-
 <!-- Footer -->
 	<div id="footer">
 		<p id="logued_on" style="margin-top: 25%;">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>

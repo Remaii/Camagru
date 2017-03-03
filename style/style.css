@@ -27,9 +27,9 @@ a:active
 	position: absolute;
 	top: 0%;
 	left: 0%;
-	width: 99.5%;
+	width: 100%;
 	background-color: rgba(250,20,20,0.5);
-	border: 2px solid red;
+	/*border: 2px solid red;*/
 	border-radius: 1vw;
 	display: flex;
 	justify-content: space-around;
@@ -44,11 +44,11 @@ a:active
 #footer
 {
 	position: absolute;
-	bottom: 0%;
+	bottom: 1%;
 	left: 0%;
 	width: 100%;
 	height: 2%;
-	border: 2px solid purple;
+	/*border: 2px solid purple;*/
 	display: inline-flex;
 	justify-content: space-around;
 	font-size: 70%;
@@ -59,13 +59,8 @@ a:active
 	top: 5%;
 	bottom: 5%;
 	right: 0%;
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	overflow-y: hidden;
-}
-.imgGal
-{
-	width: 30vw;
-	height: 23vw;
 }
 #photo
 {
@@ -74,7 +69,7 @@ a:active
 	left: 1vw;
 	width: 77%;
 	height: 90%;
-	border: 2px solid green;
+	/*border: 2px solid green;*/
 }
 #activ
 {
@@ -160,7 +155,7 @@ a:active
 #toAdd
 {
 	z-index: 2;
-	border: 2px dotted red;
+	/*border: 2px dotted red;*/
 	position: absolute;
 	overflow-y: auto;
 	top: -0.2vw;
@@ -176,7 +171,7 @@ a:active
 #myMount
 {
 	z-index: 2;
-	border: 2px dotted blue;
+	/*border: 2px dotted blue;*/
 	position: absolute;
 	overflow-y: auto;
 	top: 3%;
@@ -194,20 +189,20 @@ a:active
 }
 #miniGal
 {
-	border: 2px solid blue;
+	/*border: 2px solid blue;*/
 	position: absolute;
-	top: 3%;
+	top: 9%;
 	bottom: 3%;
 	right: 0%;
-	width: 29%;
+	width: 20%;
 	flex-direction: column;
 	overflow-y: auto;
 }
 .imgGal
 {
-	width: 25vw;
-	height: 18vw;
-	margin-left: 8%;
+	width: calc((100% - 15%) / 2);
+	height: calc((100% - 80%) / 2);
+	margin-left: calc((100% - 25%) / 2);
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
@@ -220,25 +215,25 @@ a:active
 #apercu
 {
 	position: absolute;
-	top: 3%;
+	top: 4%;
 	bottom: 3%;
 	left: 1%;
-	right: 31%;
-	border: 2px solid green;
+	right: 15%;
+	/*border: 2px solid green;*/
 	overflow: hidden;
 }
 #imgApe
 {
 	position: absolute;
 	top: 2%;
-	left: calc((100% - 500px) / 2);
-	width: 500px;
+	left: calc((100% - 70%) / 2);
+	width: 70%;
 }
 #like
 {
 	position: absolute;
 	bottom: 45%;
-	right: 3%;
+	right: 8%;
 	width: 50px;
 	z-index: 5;
 }
@@ -250,12 +245,20 @@ a:active
 	z-index: 5;
 	color: white;
 	background-color: blue;
-	border: 1px solid blue;
+	/*border: 1px solid blue;*/
 	border-radius: 5px;
+}
+#fb_share
+{
+	position: absolute;
+	bottom: 35%;
+	right: 3%;
+	width: 50px;
+	z-index: 5;
 }
 #comment
 {
-	border: 2px solid black;
+	/*border: 2px solid black;*/
 	border-top: none;
 	position: absolute;
 	bottom: 6%;

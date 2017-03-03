@@ -19,7 +19,7 @@ function getLike(name) {
 
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			nblike.innerHTML = xhr.responseText;
+			nblike.innerHTML = xhr.responseText+' Like(s)';
 		}
 	}
 	xhr.open("POST", "../function/getlike.php");
@@ -53,7 +53,9 @@ function getApe(name) {
 	if (onload != '') {
 		img.setAttribute('onload', '');
 	}
-	tocom.setAttribute('style', 'display:block;');
+	if (user != 'Unregister') {
+		tocom.setAttribute('style', 'display:block;');
+	}	
 	xhr.onreadystatechange = function(){
 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 			if (xhr.responseText === '1') {

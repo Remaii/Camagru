@@ -1,7 +1,6 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="style/style.css">
-	<!-- <meta http-equiv="refresh" content="2"> -->
 	<title>Camagru</title>
 </head>
 <body>
@@ -21,7 +20,6 @@
 	}
 ?>	
 	</div>
-
 	<div id="footer">
 		<p id="logued_on" style="margin-top: 25%;">Vous etes sur le compte: <?php echo $_SESSION['login']; ?></p>
 		<p id="credit"  style="margin-top: 25%;">Camagru © rthidet</p>

@@ -25,37 +25,36 @@ function checker() {
 		name = name.slice(pos);
 		hI = img.offsetHeight;
 		wI = img.offsetWidth;
-		// if (wI > wV){
-		// 	wI = wV - (wI - wV);
-		// 	img.style.width = wI;
-		// }
-		// if (hI > hV) {
-		// 	hI = hV - (hI - hV);
-		// 	img.style.height = hI;
-		// }
 		ciblew = ((wV - wI) / 2) + leV;
 		cibleh = ((hV - hI) / 2) + toV;
-
 		img.style.top = cibleh+"px";
 		img.style.left = ciblew+"px";
-		// if (name == 'rsc/nyancat.png')
-			// img.style.left = leV+"px";
-		// else if (name == 'rsc/parasol.png' || name == 'rsc/arbre.png')
-			// img.style.top = ((toV + hV) - hI);
 	}
 }
 function getImg() {
 	var fileIn = document.getElementById('toUpload').files[0],
 		activ = document.getElementById('activ'),
 		vide = document.getElementById('video'),
-		read = new FileReader();
+		read = new FileReader(),
+		name = null,
+		dbdot = 0,
+		dot = 0;
 
 	read.addEventListener('load', function(){
-		var newImg = document.createElement('img');
-		newImg.setAttribute('src', read.result);
-		newImg.setAttribute('id', 'video');
-		vide.parentNode.replaceChild(newImg, vide);
-		activ.src = 'rsc/cross.png';
+		name = read.result;
+		dbdot = name.indexOf(':');
+		dot = name.indexOf(';');
+		name = name.slice(dbdot, dot);
+		if (name == ':image/png') {
+			var newImg = document.createElement('img');
+			newImg.setAttribute('src', read.result);
+			newImg.setAttribute('id', 'video');
+			vide.parentNode.replaceChild(newImg, vide);
+			activ.src = 'rsc/cross.png';
+		}
+		else {
+			return (alert("Uniquement des image au format png !"));
+		}
 	});
 	read.readAsDataURL(fileIn);
 }
@@ -67,14 +66,10 @@ function camera() {
 		toAdd = document.getElementById('onVid'),
 		data = null,
 		width = video.offsetWidth,
-		height = video.offsetHeight;
-		navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+		height = video.offsetHeight,
+		constraint = { audio: false, video: true};
 
-		navigator.getMedia(
-		{
-			video: true
-		},
-		function(stream) {
+		navigator.mediaDevices.getUserMedia(constraint).then(function(stream) {
 			if (navigator.mozGetUserMedia) {
 				video.mozSrcObject = stream;
 			}
@@ -88,7 +83,6 @@ function camera() {
 			console.log("An error occured!" + err);
 		}
 	);
-
 	video.addEventListener('canplay', function(ev){
 		if (!streaming) {
 			height = video.videoHeight / (video.videoWidth / width);
