@@ -20,5 +20,7 @@ if ($_POST['mail'] != null || $_POST['mail'] != '') {
 	else {
 		echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Desole, adresse mail inconnue');window.location.href = ('../index.php');</script>";
 	}
+} else {
+	echo"<link rel='stylesheet' type='text/css' href='../style/style.css'><script>alert('Pas de Mail, Pas de Reset!');window.location.href = ('../index.php');</script>";
 }
 ?>

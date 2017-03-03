@@ -48,10 +48,11 @@ a:active
 	left: 0%;
 	width: 100%;
 	height: 2%;
-	/*border: 2px solid purple;*/
+	z-index: 5;
 	display: inline-flex;
 	justify-content: space-around;
 	font-size: 70%;
+	/*border: 2px solid purple;*/
 }
 #galerie
 {
@@ -247,14 +248,6 @@ a:active
 	background-color: blue;
 	/*border: 1px solid blue;*/
 	border-radius: 5px;
-}
-#fb_share
-{
-	position: absolute;
-	bottom: 35%;
-	right: 3%;
-	width: 50px;
-	z-index: 5;
 }
 #comment
 {
