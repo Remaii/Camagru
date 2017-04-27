@@ -12,11 +12,7 @@
 
 ### Partie obligatoire
 #### Utilisateur
-* S'inscrire avec :
-** login ✅,
-** mail ✅,
-** mot de passe (1 majuscule, 1 chiffre, 5 caractères minimum) ✅,
-** recevoir un mail de confirmation ✅.
+* S'inscrire avec: login ✅, mail ✅, mot de passe (1 majuscule, 1 chiffre, 5 caractères minimum) ✅, recevoir un mail de confirmation ✅.
 * Se connecter avec, login ✅, mot de passe ✅, recevoir un mail pour réinitialisé son mot de passe ✅.
 * Se déconnecter en un seul clic depuis n'importe quel pages du site ✅.
 
