@@ -12,16 +12,23 @@
 
 ### Partie obligatoire
 #### Utilisateur
-* S'inscrire avec: login ✅, mail ✅, mot de passe (1 majuscule, 1 chiffre, 5 caractères minimum) ✅, recevoir un mail de confirmation ✅.
-* Se connecter avec, login ✅, mot de passe ✅, recevoir un mail pour réinitialisé son mot de passe ✅.
+* S'inscrire avec: login ✅, mail ✅,
+* -mot de passe (1 majuscule, 1 chiffre, 5 caractères minimum) ✅,
+* -recevoir un mail de confirmation ✅.
+* Se connecter avec: login ✅, mot de passe ✅,
+* -recevoir un mail pour réinitialisé son mot de passe ✅.
 * Se déconnecter en un seul clic depuis n'importe quel pages du site ✅.
 
 #### Montage
-* Aperçu de la webcam ✅, liste des images superposables('filtre') ✅, prendre une photo ✅.
+* Aperçu de la webcam ✅,
+-liste des images superposables('filtre') ✅,
+-prendre une photo ✅.
 * Avoir un aperçu de ses photos-montages ✅.
-* Possibilité d'uploader une image de fond (pas de webcam) ✅, filtre selectionnable ✅.
-* Ajout impossible des filtre sur le montage tant que, la webcam est inactive ✅, aucune image n'est uploader ✅.
-* La compilation des 2 images doit se faire coté serveur en PHP ✅.
+* Possibilité d'uploader une image de fond (pas de webcam) ✅,
+-filtre selectionnable ✅.
+* Ajout impossible des filtre sur le montage tant que, la webcam est inactive ✅,
+-aucune image n'est uploader ✅.
+* La compilation des 2 images doit se faire coté serveur, en PHP ✅.
 * L'utilisateur doit pouvoir supprimer ses montages uniquement ✅.
 
 #### Galerie
@@ -36,3 +43,12 @@
 * Pagination infini sur la partie galerie ✅.
 * Lien de l'image commenter dans le mail ✅.
 * taille du filtre reglable ✅.
+
+#### Eliminatoires
+* le code ne doit produire aucune erreur, warning, notice:
+-côté client ✅,
+-côté serveur ✅.
+* Utilisé PDO ✅, aucun framework / micro-framework / librairy ✅.
+* Pas de mot de passe en clair dans la bdd MySQL ✅.
+* Protection contre les injections SQL ✅.
+* Validation des formulaires de saisie / uploads ✅.
